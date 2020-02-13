@@ -42,26 +42,26 @@ For each test utterance one or more confusion matrix results can be computed:
 
 ## Confusion matrix output for entity comparison
 When the expected list of entities is not empty, we check that each entity matches by type, value and by the occurence index of the matching text in the utterance.
-| Utterance text        | Actual entities (startPos, endPos, type, value)	 | Expected entities (startPos, endPos, type, value)   | 
+| Utterance text        | Actual entities<br>(startPos, endPos, type, value)	 | Expected entities<br>(startPos, endPos, type, value)   | 
 |:---------------------: | :------------: |:---------------:|
 |Schedule meeting with bob tomorrow| 	26, 33, datetime, tomorrow <br> 23, 25, personName, bob| 23, 25, personName, bob <br>26, 33, datetime, tomorrow|
 
 **True Positive** for datetime and personName since they have a corresponding match in the actual entities based on entity type, text match and index match.
 
-| Utterance text        | Actual entities (startPos, endPos, type, value)	 | Expected entities (startPos, endPos, type, value)   | 
+| Utterance text        | Actual entities<br>(startPos, endPos, type, value)	 | Expected entities<br>(startPos, endPos, type, value)   | 
 |:---------------------: | :------------: |:---------------:|
 |Schedule meeting with bob tomorrow| 	26, 33, datetime, tomorrow <br> 23, 25, personName, bob| |
 
 **False Positive** for datetime and personName since they don’t have a matching entity in the expected entities list.
 
-| Utterance text        | Actual entities (startPos, endPos, type, value)	 | Expected entities (startPos, endPos, type, value)   | 
+| Utterance text        | Actual entities<br>(startPos, endPos, type, value)	 | Expected entities<br>(startPos, endPos, type, value)   | 
 |:---------------------: | :------------: |:---------------:|
 |Schedule meeting with bob | 	17, 24, personName, bob| 22, 24, personName, bob|
 **False Positive** for personName since the start position doesn’t match with the expected one.
 
 ### Producing two results
 
-| Utterance text        | Actual entities (startPos, endPos, type, value)	 | Expected entities (startPos, endPos, type, value)   | 
+| Utterance text        | Actual entities<br>(startPos, endPos, type, value)	 | Expected entities<br>(startPos, endPos, type, value)   | 
 |:---------------------: | :------------: |:---------------:|
 |Schedule meeting with bob | 	22, 24, userName, bob| 22, 24, personName, bob|
 
@@ -69,18 +69,46 @@ When the expected list of entities is not empty, we check that each entity match
 **FalseNegative** for personName since it doesn’t have a corresponding match in the actual entities
 
 
-| Utterance text        | Actual entities (startPos, endPos, type, value)	 | Expected entities (startPos, endPos, type, value)   | 
+| Utterance text        | Actual entities<br>(startPos, endPos, type, value)	 | Expected entities<br>(startPos, endPos, type, value)   | 
 |:---------------------: | :------------: |:---------------:|
 |Schedule meeting with bob tomorrow| 	| 23, 25, personName, bob <br> 26, 33, datetime, tomorrow 
 
 **False Negative** for personName and datetime since they don’t have a corresponding match in the actual entities26, 33, datetime, tomorrow 
 
 
-| Utterance text        | Actual entities (startPos, endPos, type, value)	 | Expected entities (startPos, endPos, type, value)   | 
+| Utterance text        | Actual entities<br>(startPos, endPos, type, value)	 | Expected entities<br>(startPos, endPos, type, value)   | 
 |:---------------------: | :------------: |:---------------:|
 |Good Morning|  |
 
 **True Negative:** There are no expected entities and no entities identified
+
+## Confusion matrix output for text comparison 
+We compute the text results for speech tests only.
+
+|Actual utterance text  | Expected utterance text  | 
+|:---------------------:| :-----------------------:|
+|Good morning, Cortana  | Good morning, Cortana    | 
+
+**True Positive:** Text equality between normalized actual text and expected. Where consecutive spaces have been normalized to one space, punctuation has been removed and case is ignored
+
+|Actual utterance text  | Expected utterance text  | 
+|:---------------------:| :-----------------------:|
+|Good morning, Courtney | 	Good morning cortana   | 
+
+**False Positive:** texts are not equal
+
+|Actual utterance text  | Expected utterance text  | 
+|:---------------------:| :-----------------------:|
+|empty                  | 	empty                  | 
+
+
+**True Negative:** Both utterances are empty
+
+|Actual utterance text  | Expected utterance text  | 
+|:---------------------:| :-----------------------:|
+|empty                  | Good morning, Cortana   | 
+
+**False Negative:** Only the actual utterance text is empty 
 
 
 ## Confusion matrix output for entity value comparison 
