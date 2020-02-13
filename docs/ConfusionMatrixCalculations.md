@@ -23,19 +23,21 @@ For each test utterance one or more confusion matrix results can be computed:
 |Utterance text        | Actual Intent  | ExpectedIntent   | 
 |:---------------------: | :------------: |:---------------:|
 |who is bob goodermuth? | ContactInfo | ContactInfo|
-**True Positive for ContactInfo:** The expected and actual intents are equal
 
+**True Positive for ContactInfo:** The expected and actual intents are equal
 
 
 | Utterance text        | Actual Intent  | ExpectedIntent   | 
 |:---------------------: | :------------: |:---------------:|
 |who is bob goodermuth? | Greeting | Greeting|
+
 **True Negative for ContactInfo:** Actual intent is not ContactInfo, and the expected result it not ContactInfo
 
 ### Producing two results
 | Utterance text        | Actual Intent  | ExpectedIntent   | 
 |:---------------------: | :------------: |:---------------:|
 |who is bob goodermuth? | Greeting | ContactInfo|
+
 **False Positive** for Greeting and **False Negative** for ContactInfo since intents mismatch
 
 ## Confusion matrix output for entity comparison
@@ -43,6 +45,7 @@ When the expected list of entities is not empty, we check that each entity match
 | Utterance text        | Actual entities (startPos, endPos, type, value)	 | Expected entities (startPos, endPos, type, value)   | 
 |:---------------------: | :------------: |:---------------:|
 |Schedule meeting with bob tomorrow| 	26, 33, datetime, tomorrow <br> 23, 25, personName, bob| 23, 25, personName, bob <br>26, 33, datetime, tomorrow|
+
 **True Positive** for datetime and personName since they have a corresponding match in the actual entities based on entity type, text match and index match.
 
 | Utterance text        | Actual entities (startPos, endPos, type, value)	 | Expected entities (startPos, endPos, type, value)   | 
@@ -97,6 +100,7 @@ Besides comparing entity values for the entities comparison we also compute True
 | Utterance text        | Actual entity value	 | Expected entity value  | 
 |:---------------------: | :------------: |:---------------:|
 |Do I have unpaid bills?| "bills",<br>"invoice", <br>"invoices"| checks|
+
 **False Negative:** for checks since the entity matches by type, startPos, endPos, but the value does not have the expected subtree in the entity resolution value
 
 
