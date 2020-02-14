@@ -57,6 +57,7 @@ When the expected list of entities is not empty, we check that each entity match
 | Utterance text        | Actual entities<br>(startPos, endPos, type, value)	 | Expected entities<br>(startPos, endPos, type, value)   | 
 |:---------------------: | :------------: |:---------------:|
 |Schedule meeting with bob | 	17, 24, personName, bob| 22, 24, personName, bob|
+
 **False Positive** for personName since the start position doesn’t match with the expected one.
 
 ### Producing two results
